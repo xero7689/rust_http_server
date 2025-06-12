@@ -14,6 +14,9 @@ fn main() {
         _stream.read(&mut buffer).unwrap();
         _stream.write(&mut buffer).unwrap();
 
-        println!("Got message from client: {:?}", str::from_utf8(&buffer).unwrap());
+        println!(
+            "Got message from client: {:?}",
+            str::from_utf8(&buffer).unwrap()
+        );
     }
 }
