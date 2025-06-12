@@ -1,5 +1,5 @@
-mod httprequest;
-mod httpresponse;
+pub mod httprequest;
+pub mod httpresponse;
 
 #[derive(Debug, PartialEq)]
 pub enum Method {
