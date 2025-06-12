@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Check - Rust HTTP Server</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Server Health Check</h1>
+            <p>System status and monitoring</p>
+        </header>
+        
+        <main>
+            <section class="status-card">
+                <div class="status-indicator healthy">
+                    <span class="status-dot"></span>
+                    <h2>Server Status: Healthy</h2>
+                </div>
+                
+                <div class="health-details">
+                    <h3>System Information</h3>
+                    <ul>
+                        <li><strong>Server:</strong> Rust HTTP Server</li>
+                        <li><strong>Status:</strong> Online</li>
+                        <li><strong>Port:</strong> 3000</li>
+                        <li><strong>Protocol:</strong> HTTP/1.1</li>
+                    </ul>
+                </div>
+                
+                <div class="endpoints-status">
+                    <h3>Endpoint Status</h3>
+                    <div class="endpoint-status">
+                        <span class="status-ok">✓</span> Static files serving
+                    </div>
+                    <div class="endpoint-status">
+                        <span class="status-ok">✓</span> API endpoints
+                    </div>
+                    <div class="endpoint-status">
+                        <span class="status-ok">✓</span> Request routing
+                    </div>
+                </div>
+            </section>
+            
+            <section class="navigation">
+                <a href="/" class="endpoint-link">← Back to Home</a>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
