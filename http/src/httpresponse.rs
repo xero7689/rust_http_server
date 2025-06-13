@@ -60,6 +60,16 @@ impl<'a> HttpResponse<'a> {
         let _ = write!(write_stream, "{}", response_string);
         Ok(())
     }
+
+    pub async fn send_response_async(
+        &self,
+        write_stream: &mut (impl tokio::io::AsyncWriteExt + Unpin),
+    ) -> std::result::Result<(), std::io::Error> {
+        let res = self.clone();
+        let response_string: String = String::from(res);
+        write_stream.write_all(response_string.as_bytes()).await?;
+        Ok(())
+    }
 }
 
 impl<'a> HttpResponse<'a> {
