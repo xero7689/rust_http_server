@@ -1,8 +1,8 @@
 use super::router::Router;
 use http::httprequest::HttpRequest;
-use std::io::prelude::*;
-use std::net::TcpListener;
 use std::str;
+use tokio::io::AsyncReadExt;
+use tokio::net::TcpListener;
 
 pub struct Server<'a> {
     socket_addr: &'a str,
@@ -13,19 +13,36 @@ impl<'a> Server<'a> {
         Server { socket_addr }
     }
 
-    pub fn run(&self) {
-        let connection_listener = TcpListener::bind(self.socket_addr).unwrap();
+    // 'a is already a part of &self here, which equals to &'a self
+    pub async fn run(&self) -> Result<(), Box<dyn std::error::Error>> {
+        let connection_listener = TcpListener::bind(self.socket_addr).await?;
 
         println!("Running on {}", self.socket_addr);
 
-        for stream in connection_listener.incoming() {
-            let mut stream = stream.unwrap();
-            println!("Connection establish");
-            let mut read_buffer = [0; 90];
-            stream.read(&mut read_buffer).unwrap();
-            let req: HttpRequest = String::from_utf8(read_buffer.to_vec()).unwrap().into();
+        loop {
+            let (stream, _) = connection_listener.accept().await?;
 
-            Router::route(req, &mut stream);
+            tokio::spawn(async move {
+                if let Err(e) = handle_connection(stream).await {
+                    eprintln!("Error handling connection: {}", e);
+                }
+            });
         }
     }
+}
+
+async fn handle_connection(
+    mut stream: tokio::net::TcpStream,
+) -> Result<(), Box<dyn std::error::Error>> {
+    println!("Connection established");
+
+    let mut read_buffer = [0; 4096]; // Increased buffer size
+    let bytes_read = stream.read(&mut read_buffer).await?;
+
+    let request_str = String::from_utf8_lossy(&read_buffer[..bytes_read]);
+    let req: HttpRequest = request_str.to_string().into();
+
+    Router::route(req, &mut stream).await?;
+
+    Ok(())
 }

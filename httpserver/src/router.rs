@@ -1,11 +1,14 @@
 use super::handler::{Handler, PageNotFoundHandler, StaticPageHandler, WebServiceHandler};
 use http::{httprequest, httprequest::HttpRequest, httpresponse::HttpResponse};
 
-use std::io::prelude::*;
+use tokio::io::AsyncWriteExt;
 pub struct Router;
 
 impl Router {
-    pub fn route(req: HttpRequest, stream: &mut impl Write) -> () {
+    pub async fn route(
+        req: HttpRequest,
+        stream: &mut (impl AsyncWriteExt + Unpin),
+    ) -> Result<(), Box<dyn std::error::Error>> {
         match req.method {
             http::Method::Get => match &req.resource {
                 httprequest::Resource::Path(s) => {
@@ -13,19 +16,20 @@ impl Router {
                     match route[1] {
                         "api" => {
                             let resp: HttpResponse = WebServiceHandler::handle(&req);
-                            let _ = resp.send_response(stream);
+                            resp.send_response_async(stream).await?;
                         }
                         _ => {
                             let resp: HttpResponse = StaticPageHandler::handle(&req);
-                            let _ = resp.send_response(stream);
+                            resp.send_response_async(stream).await?;
                         }
                     }
                 }
             },
             _ => {
                 let resp: HttpResponse = PageNotFoundHandler::handle(&req);
-                let _ = resp.send_response(stream);
+                resp.send_response_async(stream).await?;
             }
         }
+        Ok(())
     }
 }
