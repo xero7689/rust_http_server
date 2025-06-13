@@ -8,8 +8,8 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     line-height: 1.6;
-    color: #333;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #ebdbb2;
+    background: #282828;
     min-height: 100vh;
 }
 
@@ -17,10 +17,9 @@ body {
     max-width: 800px;
     margin: 0 auto;
     padding: 2rem;
-    background: rgba(255, 255, 255, 0.95);
+    background: #3c3836;
     border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
@@ -30,18 +29,18 @@ header {
     text-align: center;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid #e2e8f0;
+    border-bottom: 2px solid #504945;
 }
 
 header h1 {
-    color: #2d3748;
+    color: #fabd2f;
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
     font-weight: 700;
 }
 
 header p {
-    color: #718096;
+    color: #a89984;
     font-size: 1.1rem;
 }
 
@@ -55,13 +54,13 @@ section {
 }
 
 h2 {
-    color: #2d3748;
+    color: #fe8019;
     margin-bottom: 1rem;
     font-size: 1.5rem;
 }
 
 h3 {
-    color: #4a5568;
+    color: #d3869b;
     margin-bottom: 0.75rem;
     font-size: 1.2rem;
 }
@@ -75,15 +74,15 @@ h3 {
 .features li {
     padding: 0.75rem 1rem;
     margin-bottom: 0.5rem;
-    background: #f7fafc;
-    border-left: 4px solid #4299e1;
+    background: #504945;
+    border-left: 4px solid #83a598;
     border-radius: 0 6px 6px 0;
     transition: transform 0.2s ease;
 }
 
 .features li:hover {
     transform: translateX(5px);
-    background: #edf2f7;
+    background: #665c54;
 }
 
 /* Navigation and endpoints */
@@ -96,39 +95,39 @@ h3 {
 .endpoint-link {
     display: inline-block;
     padding: 0.75rem 1.5rem;
-    background: #4299e1;
-    color: white;
+    background: #458588;
+    color: #fbf1c7;
     text-decoration: none;
     border-radius: 6px;
     font-weight: 500;
     transition: all 0.3s ease;
-    border: 2px solid #4299e1;
+    border: 2px solid #458588;
 }
 
 .endpoint-link:hover {
-    background: #3182ce;
-    border-color: #3182ce;
+    background: #689d6a;
+    border-color: #689d6a;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.4);
+    box-shadow: 0 4px 12px rgba(69, 133, 136, 0.4);
 }
 
 .endpoint-link.primary {
-    background: #38a169;
-    border-color: #38a169;
+    background: #b16286;
+    border-color: #b16286;
 }
 
 .endpoint-link.primary:hover {
-    background: #2f855a;
-    border-color: #2f855a;
-    box-shadow: 0 4px 12px rgba(56, 161, 105, 0.4);
+    background: #8f3f71;
+    border-color: #8f3f71;
+    box-shadow: 0 4px 12px rgba(177, 98, 134, 0.4);
 }
 
 /* Health check specific styles */
 .status-card {
-    background: #f7fafc;
+    background: #504945;
     padding: 2rem;
     border-radius: 8px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #665c54;
 }
 
 .status-indicator {
@@ -138,13 +137,13 @@ h3 {
 }
 
 .status-indicator.healthy {
-    color: #38a169;
+    color: #b8bb26;
 }
 
 .status-dot {
     width: 12px;
     height: 12px;  
-    background: #38a169;
+    background: #b8bb26;
     border-radius: 50%;
     margin-right: 0.75rem;
     animation: pulse 2s infinite;
@@ -152,13 +151,13 @@ h3 {
 
 @keyframes pulse {
     0% {
-        box-shadow: 0 0 0 0 rgba(56, 161, 105, 0.7);
+        box-shadow: 0 0 0 0 rgba(184, 187, 38, 0.7);
     }
     70% {
-        box-shadow: 0 0 0 10px rgba(56, 161, 105, 0);
+        box-shadow: 0 0 0 10px rgba(184, 187, 38, 0);
     }
     100% {
-        box-shadow: 0 0 0 0 rgba(56, 161, 105, 0);
+        box-shadow: 0 0 0 0 rgba(184, 187, 38, 0);
     }
 }
 
@@ -169,7 +168,7 @@ h3 {
 
 .health-details li {
     padding: 0.5rem 0;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid #665c54;
 }
 
 .health-details li:last-child {
@@ -187,7 +186,7 @@ h3 {
 }
 
 .status-ok {
-    color: #38a169;
+    color: #b8bb26;
     font-weight: bold;
     margin-right: 0.75rem;
     font-size: 1.1rem;
@@ -196,10 +195,10 @@ h3 {
 /* 404 error page styles */
 .error-card {
     text-align: center;
-    background: #f7fafc;
+    background: #504945;
     padding: 3rem 2rem;
     border-radius: 8px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #665c54;
 }
 
 .error-icon {
@@ -208,12 +207,12 @@ h3 {
 }
 
 .error-message h2 {
-    color: #e53e3e;
+    color: #fb4934;
     margin-bottom: 1rem;
 }
 
 .error-message p {
-    color: #718096;
+    color: #a89984;
     font-size: 1.1rem;
     margin-bottom: 2rem;
 }
@@ -231,11 +230,11 @@ h3 {
 
 .suggestions li {
     padding: 0.5rem 0;
-    color: #4a5568;
+    color: #d5c4a1;
 }
 
 .suggestions a {
-    color: #4299e1;
+    color: #83a598;
     text-decoration: none;
     font-weight: 500;
 }
@@ -248,8 +247,8 @@ h3 {
 footer {
     text-align: center;
     padding-top: 1rem;
-    border-top: 1px solid #e2e8f0;
-    color: #718096;
+    border-top: 1px solid #504945;
+    color: #a89984;
     font-size: 0.9rem;
 }
 
