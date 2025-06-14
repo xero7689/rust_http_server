@@ -106,6 +106,8 @@ impl<'a> HttpResponse<'a> {
 impl<'a> From<HttpResponse<'a>> for String {
     fn from(res: HttpResponse) -> String {
         let res1 = res.clone();
+        let body_content = res1.body();
+        let content_length = body_content.len();
 
         format!(
             "{} {} {}\r\n{}Content-Length: {}\r\n\r\n{}",
@@ -113,8 +115,8 @@ impl<'a> From<HttpResponse<'a>> for String {
             &res1.status_code(),
             &res1.status_text(),
             &res1.headers(),
-            &res1.body.as_ref().unwrap().len(),
-            &res1.body()
+            content_length,
+            body_content
         )
     }
 }

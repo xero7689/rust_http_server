@@ -51,9 +51,9 @@ impl From<String> for HttpRequest {
 
 fn process_req_line(s: &str) -> (Method, Resource, Version) {
     let mut words = s.split_whitespace();
-    let method = words.next().unwrap();
-    let resource = words.next().unwrap();
-    let version = words.next().unwrap();
+    let method = words.next().unwrap_or("GET");
+    let resource = words.next().unwrap_or("/");
+    let version = words.next().unwrap_or("HTTP/1.1");
 
     (
         method.into(),
