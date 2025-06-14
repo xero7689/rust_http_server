@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+# Globals allows you to define properties that will apply to all resources of the same tpye.
+# In this instance, we configure all Lambda functions defined in this file to have a timeout of 3 seconds
+# Memory ocnfiguration, permissions, networking also can be dfined here.
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  RustHTTPServer:
+    Metadata:
+      BuildMethod: rust-cargolambda
+      BuildProperties:
+        PackageIncludes:
+          - public/
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: httpserver # Specific the location of the source code for Lambda function. Nees to point to the same directory as the Cargo.toml
+      Handler: bootstrap.is.the.handler
+      Layers:
+        - !Sub arn:aws:lambda:${AWS::Region}:753240598075:layer:LambdaAdapterLayerArm64:17
+      Runtime: provided.al2023
+      Architectures:
+        - arm64
+      Events: # Events property specifies how the Lambda function will be triggered.
+        # This type of event creates an implicity integration between the Lambda function and API Gateway
+        # SAM will take care of creating the API Gateway resources for us
+        RustHTTPServerAPI:
+          Type: HttpApi
+          Properties:
+            Path: /{proxy+} # Tell API-Gateway to pass every single request to lambda function
+            Method: ANY
+
+Outputs:
+  RustHTTPServerEndpoint:
+    Description: "Rust HTTP Server API endpoint"
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/"
+
